@@ -1,19 +1,19 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useState } from "react"
-import {NFTCard} from "./components/nftCard"
+import { NFTCard } from "./components/nftCard"
 
 const Home = () => {
-  const [wallet, setWalletAddress] = useState("")
+  const [wallet, setWallet] = useState("")
   const [collection, setCollectionAddress] = useState("")
   const [NFTs, setNFTs] = useState([])
   const [fetchForCollection, setFetchForCollection] = useState(false)
 
+  // Fetch API 
+
   const fetchNFTs = async() => {
     let nfts;
     console.log("fetching nfts");
-    const api_key = "vr_5Poi6r4snBfZyLeWcTYgKI6wjGQ60"
-    const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${api_key}/getNFTs/`;
+   
+    const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_API_KEY}/getNFTs/`;
 
     if(!collection.length) {
       var requestOptions = {
@@ -36,14 +36,16 @@ const Home = () => {
     }
   }
 
+  // Fetch API
+
   const fetchNFTsforCollection = async () => {
     if(collection.length) {
       var requestOptions = {
         method: 'GET',
         redirect: 'follow'
       };
-      const api_key = "vr_5Poi6r4snBfZyLeWcTYgKI6wjGQ60"
-      const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${api_key}/getNFTsForCollection/`;
+
+      const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_API_KEY}/getNFTsForCollection/`;
       const fetchURL = `${baseURL}?contractAddress=${collection}&withMetadata=${"true"}`;
       const nfts = await fetch(fetchURL, requestOptions).then(data => data.json())
       if(nfts) {
@@ -55,11 +57,12 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 gap-y-3">
+    <div className="flex flex-col items-center justify-center py-8 gap-y-3 font-mono">
+      <h1 className="text-4xl text-blue-500 font-semibold">NFT Gallery</h1>
       <div className="flex flex-col w-full justify-center items-center gap-y-2">
         <input className="w-2/5 bg-slate-100 py-2 px-2 rounded-lg text-gray-800 focus:outline-blue-300 disabled:bg-slate-50 disabled:text-gray-50"
           disabled={fetchForCollection}
-          onChange={(e) => {setWalletAddress(e.target.value)}} 
+          onChange={(e) => {setWallet(e.target.value)}} 
           value={wallet} 
           type={"text"} 
           placeholder="Add your wallet address"
@@ -72,13 +75,13 @@ const Home = () => {
           placeholder="Add the collection address"
         >
         </input>
-        <label className="text-gray-600">
+        <label className="text-gray-600 mt-2">
           <input className="mr-2"
             onChange={(e) => {setFetchForCollection(e.target.checked)}} 
             type={"checkbox"}
           >
           </input>Fetch for collection</label>
-        <button className="disabled:bg-slate-500 text-white bg-blue-400 px-4 py-2 mt-3 rounded-md w-1/5"
+        <button className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5"
           onClick={
             () => {
               if(fetchForCollection) {
@@ -89,9 +92,9 @@ const Home = () => {
             }
           } 
         >
-          Let's go!</button>
+          Fetch NFTs</button>
       </div>
-      <div className="flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-2 justify-center">
+      <div className="flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-6 justify-center">
         {
           NFTs.length && NFTs.map((nft, index) => {
             return (

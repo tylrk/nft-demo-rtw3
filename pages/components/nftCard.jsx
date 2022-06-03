@@ -20,7 +20,7 @@ export const NFTCard = ({nft}) => {
             </div>
 
             <div className="flex justify-center mb-1 mt-2">
-                <a className="py-2 px-4 bg-blue-500 w-1/2 text-center rounded-md text-white cursor-pointer" 
+                <a className="py-2 px-4 bg-blue-500 w-4/5 text-center rounded-md text-white cursor-pointer" 
                     target={"blank"} 
                     href={`https://etherscan.io/token/${nft.contract.address}`}
                 >
