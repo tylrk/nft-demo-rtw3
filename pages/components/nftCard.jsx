@@ -15,8 +15,8 @@ export const NFTCard = ({nft}) => {
                     </button>
             </div>
 
-            <div className="flex-grow mt-2">
-                <p className="text-gray-600">{nft.description?.substr(0, 150)}...</p>
+            <div className="flex-grow w-full mt-2">
+                <p className="text-gray-600 break-words">{nft.description?.substr(0, 150)}...</p>
             </div>
 
             <div className="flex justify-center mb-1 mt-2">

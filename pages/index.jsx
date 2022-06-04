@@ -6,6 +6,7 @@ const Home = () => {
   const [collection, setCollectionAddress] = useState("")
   const [NFTs, setNFTs] = useState([])
   const [fetchForCollection, setFetchForCollection] = useState(false)
+  const [startToken, setStartToken] = useState('')
 
   // Fetch API 
 
@@ -32,13 +33,17 @@ const Home = () => {
 
     if(nfts) {
       console.log("nfts:", nfts);
-      setNFTs(nfts.ownedNfts);
+      setNFTs([...NFTs, ...nfts.ownedNfts]);
+
+      if(nfts.pageKey) {
+        setStartToken(nfts.pageKey)
+      }
     }
   }
 
   // Fetch API
 
-  const fetchNFTsforCollection = async () => {
+  const fetchNFTsForCollection = async () => {
     if(collection.length) {
       var requestOptions = {
         method: 'GET',
@@ -46,17 +51,28 @@ const Home = () => {
       };
 
       const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_API_KEY}/getNFTsForCollection/`;
-      const fetchURL = `${baseURL}?contractAddress=${collection}&withMetadata=${"true"}`;
+      const fetchURL = `${baseURL}?contractAddress=${collection}&withMetadata=${"true"}&startToken=${startToken}`;
       const nfts = await fetch(fetchURL, requestOptions).then(data => data.json())
       if(nfts) {
+        console.log(nfts.nextToken)
+
+        if(nfts.nextToken) {
+          setStartToken(nfts.nextToken)
+        }
+        console.log(NFTs.length)
         console.log("NFTs in collection:", nfts)
+
+        if(NFTs.length > 0) {
+          setNFTs([...NFTs,...nfts.nfts])
+        } else {
         setNFTs(nfts.nfts)
-      }
+        }
 
     }
   }
+  }
 
-  return (
+   return (
     <div className="flex flex-col items-center justify-center py-8 gap-y-3 font-mono">
       <h1 className="text-4xl text-blue-500 font-semibold">NFT Gallery</h1>
       <div className="flex flex-col w-full justify-center items-center gap-y-2">
@@ -85,7 +101,7 @@ const Home = () => {
           onClick={
             () => {
               if(fetchForCollection) {
-                fetchNFTsforCollection()
+                fetchNFTsForCollection()
               } else {
                 fetchNFTs()
               }
@@ -103,6 +119,21 @@ const Home = () => {
           })
         }
       </div>
+      {startToken ? 
+          <button 
+            className={"disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-6 rounded-md w-1/4"}
+            onClick={
+              () => {
+                if (fetchForCollection) {
+                  fetchNFTsForCollection()
+                } else fetchNFTs()
+              }
+            }
+          >
+            Show More
+          </button>
+          : <></> } 
+         
     </div>
   )
 }
