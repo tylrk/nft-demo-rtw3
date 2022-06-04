@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { NFTCard } from "./components/nftCard"
 
 const Home = () => {
@@ -7,6 +7,24 @@ const Home = () => {
   const [NFTs, setNFTs] = useState([])
   const [fetchForCollection, setFetchForCollection] = useState(false)
   const [startToken, setStartToken] = useState('')
+  const [showButton, setShowButton] = useState(false)
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    });
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // for smoothly scrolling
+    });
+  };
 
   // Fetch API 
 
@@ -73,6 +91,7 @@ const Home = () => {
   }
 
    return (
+    <>
     <div className="flex flex-col items-center justify-center py-8 gap-y-3 font-mono">
       <h1 className="text-4xl text-blue-500 font-semibold">NFT Gallery</h1>
       <div className="flex flex-col w-full justify-center items-center gap-y-2">
@@ -97,7 +116,8 @@ const Home = () => {
             type={"checkbox"}
           >
           </input>Fetch for collection</label>
-        <button className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5"
+        <button 
+          className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5 hover:bg-blue-600 active:bg-blue-700"
           onClick={
             () => {
               if(fetchForCollection) {
@@ -121,7 +141,7 @@ const Home = () => {
       </div>
       {startToken ? 
           <button 
-            className={"disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-6 rounded-md w-1/4"}
+            className={"disabled:bg-slate-500 text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 px-4 py-2 mt-6 rounded-md w-1/4"}
             onClick={
               () => {
                 if (fetchForCollection) {
@@ -133,8 +153,15 @@ const Home = () => {
             Show More
           </button>
           : <></> } 
-         
     </div>
+
+    {showButton && (
+      <button onClick={scrollToTop} 
+        className="bg-slate-400 fixed bottom-20 right-20 rounded-full text-5xl shadow-2xl opacity-70 font-light hover:bg-slate-500 active:bg-slate-600">
+        &#8679;
+      </button>
+    )}
+    </>
   )
 }
 
