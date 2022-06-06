@@ -155,12 +155,12 @@ const Home = () => {
           : <></> } 
     </div>
 
-    {showButton && (
-      <button onClick={scrollToTop} 
-        className="bg-slate-400 fixed bottom-20 right-20 rounded-full text-5xl shadow-2xl opacity-70 font-light hover:bg-slate-500 active:bg-slate-600">
-        &#8679;
-      </button>
-    )}
+      {showButton && (
+        <button onClick={scrollToTop} 
+          className="bg-slate-400 fixed bottom-20 right-20 rounded-full text-5xl shadow-2xl opacity-70 font-light hover:bg-slate-500 active:bg-slate-600">
+          &#8679;
+        </button>
+      )}
     </>
   )
 }
