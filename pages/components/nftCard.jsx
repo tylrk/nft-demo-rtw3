@@ -1,3 +1,5 @@
+import React from "react";
+
 export const NFTCard = ({nft}) => {
     return (
         <div className="flex flex-col w-1/4">
@@ -29,4 +31,4 @@ export const NFTCard = ({nft}) => {
             </div>
         </div>
     )
-}
+};
