@@ -115,7 +115,7 @@ const Home = () => {
             onChange={(e) => {setFetchForCollection(e.target.checked)}} 
             type={"checkbox"}
           >
-          </input>Fetch for collection</label>
+          </input>Fetch collection</label>
         <button 
           className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5 hover:bg-blue-600 active:bg-blue-700"
           onClick={
