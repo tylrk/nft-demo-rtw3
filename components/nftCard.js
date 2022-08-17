@@ -14,7 +14,7 @@ export const NFTCard = ({nft}) => {
                         <img className=" ml-1 h-4 w-4 " src= "./copy-icon.png" />
                     </button>
             </div>
-
+            
             <div className="flex-grow w-full mt-2">
                 <p className="text-gray-600 break-words">{nft.description?.substr(0, 150)}...</p>
             </div>
