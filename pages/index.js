@@ -90,6 +90,18 @@ const Home = () => {
   }
   }
 
+  const onKeyPressWallet = (e) => {
+    if(e.which === 13) {
+      fetchNFTs();
+    }
+  }
+
+  const onKeyPressCollection = (e) => {
+    if(e.which === 13) {
+      fetchNFTsForCollection();
+    }
+  }
+
    return (
     <>
     <div className="flex flex-col items-center justify-center py-8 gap-y-3 font-mono">
@@ -101,6 +113,7 @@ const Home = () => {
           value={wallet} 
           type={"text"} 
           placeholder="Add your wallet address"
+          onKeyPress={onKeyPressWallet}
         >
         </input>
         <input className="w-2/5 bg-slate-100 py-2 px-2 rounded-lg text-gray-800 focus:outline-blue-300 disabled:bg-slate-50 disabled:text-gray-50"
@@ -108,12 +121,14 @@ const Home = () => {
           value={collection} 
           type={"text"} 
           placeholder="Add the collection address"
+          onKeyPress={onKeyPressCollection}
         >
         </input>
         <label className="text-gray-600 mt-2">
           <input className="mr-2"
             onChange={(e) => {setFetchForCollection(e.target.checked)}} 
             type={"checkbox"}
+            onKeyPress={onKeyPressCollection}
           >
           </input>Fetch collection</label>
         <button 
