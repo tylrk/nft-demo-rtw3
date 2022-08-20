@@ -96,7 +96,6 @@ const Home = () => {
     }
   }
 
-
    return (
     <>
     <div className="flex flex-col items-center justify-center py-8 gap-y-3 font-mono">
@@ -121,7 +120,7 @@ const Home = () => {
         </input>
         <button 
           className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5 hover:bg-blue-600 active:bg-blue-700"
-          onClick={ () => { fetchNFTs()}}>
+          onClick={ () => {fetchNFTs()}}>
         
           Fetch NFTs</button>
       </div>
@@ -138,13 +137,7 @@ const Home = () => {
           <button 
             className={"disabled:bg-slate-500 text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 px-4 py-2 mt-6 rounded-md w-1/4"}
             onClick={
-              () => {
-                if (fetchForCollection) {
-                  fetchNFTsForCollection()
-                } else fetchNFTs()
-              }
-            }
-          >
+              () => {fetchNFTs()}}>
             Show More
           </button>
           : <></> } 
