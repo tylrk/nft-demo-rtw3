@@ -14,8 +14,8 @@ export const NFTCard = ({nft}) => {
 
     return (
         <div className="flex flex-col w-1/6 mt-5">
-            <div>
-                <img className="object-cover h-128 w-full rounded-md" src={nft.media[0].gateway}></img>
+            <div className="block transition overflow-hidden rounded-md bg-white">
+                <img className="w-full rounded-md hover:scale-110 transition duration-400" src={nft.media[0].gateway}></img>
             </div>
 
             <div className="flex flex-col y-gap-2 px-2 py-3 h-110">
@@ -58,7 +58,7 @@ export const NFTCard = ({nft}) => {
             </div>
             
 
-            <div className="flex justify-center mb-1 mt-2">
+            <div className="flex justify-center mt-2">
                 <a className="py-2 px-4 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 w-4/5 text-center text-sm rounded-md text-white cursor-pointer" 
                     target={"blank"} 
                     href={`https://etherscan.io/token/${nft.contract.address}`}
