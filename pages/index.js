@@ -30,24 +30,22 @@ const Home = () => {
 
   const fetchNFTs = async () => {
     let nfts;
-    console.log("fetching nfts");
-   
-    const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_API_KEY}/getNFTs/`;
-
     if(!collection.length) {
       var requestOptions = {
         method: 'GET',
         redirect: 'follow'
       };
-    
-      const fetchURL = `${baseURL}?owner=${wallet}`;
 
+      console.log("fetching nfts");
+   
+      const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_API_KEY}/getNFTs/`;
+      const fetchURL = `${baseURL}?owner=${wallet}`;
       nfts = await fetch(fetchURL, requestOptions).then(data => data.json())
-    } else {
+    } /*else {
         console.log("fetching nfts for collection owned by address")
         const fetchURL = `${baseURL}?owner=${wallet}&contractAddresses%5B%5D=${collection}`;
         nfts = await fetch(fetchURL, requestOptions).then(data => data.json())
-    }
+    } */
 
     if(nfts) {
       console.log("nfts:", nfts);
@@ -57,11 +55,7 @@ const Home = () => {
         setStartToken(nfts.pageKey)
       }
     }
-  }
 
-  // Fetch API
-
-  const fetchNFTsForCollection = async () => {
     if(collection.length) {
       var requestOptions = {
         method: 'GET',
@@ -86,21 +80,22 @@ const Home = () => {
         setNFTs(nfts.nfts)
         }
 
+      }
     }
   }
-  }
 
-  const onKeyPressWallet = (e) => {
+  // Fetch API
+
+ /* const fetchNFTsForCollection = async () => {
+    
+  } */
+
+  const onKeyPress = (e) => {
     if(e.which === 13) {
       fetchNFTs();
     }
   }
 
-  const onKeyPressCollection = (e) => {
-    if(e.which === 13) {
-      fetchNFTsForCollection();
-    }
-  }
 
    return (
     <>
@@ -108,12 +103,12 @@ const Home = () => {
       <h1 className="text-4xl text-blue-500 font-semibold">NFT Gallery</h1>
       <div className="flex flex-col w-full justify-center items-center gap-y-2">
         <input className="w-2/5 bg-slate-100 py-2 px-2 rounded-lg text-gray-800 focus:outline-blue-300 disabled:bg-slate-50 disabled:text-gray-50"
-          disabled={fetchForCollection}
+          //disabled={fetchForCollection}
           onChange={(e) => {setWallet(e.target.value)}} 
           value={wallet} 
           type={"text"} 
           placeholder="Add your wallet address"
-          onKeyPress={onKeyPressWallet}
+          onKeyPress={onKeyPress}
         >
         </input>
         <input className="w-2/5 bg-slate-100 py-2 px-2 rounded-lg text-gray-800 focus:outline-blue-300 disabled:bg-slate-50 disabled:text-gray-50"
@@ -121,28 +116,13 @@ const Home = () => {
           value={collection} 
           type={"text"} 
           placeholder="Add the collection address"
-          onKeyPress={onKeyPressCollection}
+          onKeyPress={onKeyPress}
         >
         </input>
-        <label className="text-gray-600 mt-2">
-          <input className="mr-2"
-            onChange={(e) => {setFetchForCollection(e.target.checked)}} 
-            type={"checkbox"}
-            onKeyPress={onKeyPressCollection}
-          >
-          </input>Fetch collection</label>
         <button 
           className="disabled:bg-slate-500 text-white bg-blue-500 px-4 py-2 mt-3 rounded-md w-2/5 hover:bg-blue-600 active:bg-blue-700"
-          onClick={
-            () => {
-              if(fetchForCollection) {
-                fetchNFTsForCollection()
-              } else {
-                fetchNFTs()
-              }
-            }
-          } 
-        >
+          onClick={ () => { fetchNFTs()}}>
+        
           Fetch NFTs</button>
       </div>
       <div className="flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-6 justify-center">
@@ -171,10 +151,18 @@ const Home = () => {
     </div>
 
       {showButton && (
-        <button onClick={scrollToTop} 
-          className="bg-slate-400 fixed bottom-20 right-20 rounded-full text-5xl shadow-2xl opacity-70 font-light hover:bg-slate-500 active:bg-slate-600">
-          &#8679;
-        </button>
+        <svg 
+          onClick={scrollToTop} 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 330 330" 
+          className="fixed bottom-20 w-11 right-20 opacity-75 hover:animate-bounce active:animate-pulse">        
+          <path 
+            id="XMLID_224_" 
+            d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+               l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+               C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"
+          />
+        </svg>
       )}
     </>
   )
