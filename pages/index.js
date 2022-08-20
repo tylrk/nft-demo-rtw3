@@ -28,7 +28,7 @@ const Home = () => {
 
   // Fetch API 
 
-  const fetchNFTs = async() => {
+  const fetchNFTs = async () => {
     let nfts;
     console.log("fetching nfts");
    
