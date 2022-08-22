@@ -131,7 +131,7 @@ const Home = () => {
       </div>
       <div className="flex flex-wrap gap-y-10 mt-4 w-5/6 gap-x-6 justify-center bg-white rounded-md">
         {
-          NFTs.length && NFTs.map((nft, index) => {
+          NFTs.map((nft, index) => {
             return (
               <NFTCard nft={nft} key={index}></NFTCard>
             )
@@ -153,7 +153,7 @@ const Home = () => {
           onClick={scrollToTop} 
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 330 330" 
-          className="fixed bottom-20 w-12 right-10 opacity-85 fill-white hover:animate-bounce active:animate-pulse">        
+          className="fixed bottom-20 w-7 right-3 md:w-10 md:right-5 lg:w-15 lg:right-7 xl:w-15 xl:right-10 2xl:w-15 2xl:right-10 opacity-85 fill-white hover:animate-bounce active:animate-pulse">        
           <path 
             id="XMLID_224_" 
             d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
