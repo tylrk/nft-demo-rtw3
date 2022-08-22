@@ -13,14 +13,14 @@ export const NFTCard = ({nft}) => {
     };
 
     return (
-        <div className="flex flex-col w-1/6 mt-5">
+        <div className="w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 2xl:w-1/6 mt-5">
             <div className="block transition overflow-hidden rounded-md bg-white">
-                <img className="w-full rounded-md hover:scale-110 transition duration-400" src={nft.media[0].gateway}></img>
+                <img className="w-full hover:scale-110 transition duration-400" src={nft.media[0].gateway}></img>
             </div>
 
-            <div className="flex flex-col y-gap-2 px-2 py-3 h-110">
-                <div className="">
-                    <h2 className="text-xl text-gray-800">{nft.title}</h2>
+            <div className="flex flex-col y-gap-2 px-2 py-3 h-110 ">
+                <div>
+                    <h2 className="text-lg font-bold text-slate-700 text-wrap">{nft.title}</h2>
                     <p className="text-gray-600">ID: {nft.id.tokenId.substr(nft.id.tokenId.length - 4)}</p>
                     <p className="inline text-gray-600">{`${nft.contract.address.substr(0, 5)}...${nft.contract.address.substr(nft.contract.address.length - 4)}`}</p>
                     
@@ -59,7 +59,7 @@ export const NFTCard = ({nft}) => {
             
 
             <div className="flex justify-center mt-2">
-                <a className="py-2 px-4 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 w-4/5 text-center text-sm rounded-md text-white cursor-pointer" 
+                <a className="py-2 px-4 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 w-5/6 text-center text-sm rounded-md text-white cursor-pointer" 
                     target={"blank"} 
                     href={`https://etherscan.io/token/${nft.contract.address}`}
                 >
