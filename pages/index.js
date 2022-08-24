@@ -8,6 +8,7 @@ const Home = () => {
   const [NFTs, setNFTs] = useState([])
   const [startToken, setStartToken] = useState(null)
   const [showButton, setShowButton] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -17,6 +18,7 @@ const Home = () => {
         setShowButton(false);
       }
     });
+    fetchNFTs();
   }, []);
 
   const scrollToTop = () => {
@@ -85,7 +87,9 @@ const Home = () => {
       }
     } catch (err) {
       console.log(err);
-    } 
+    } finally {
+      setIsInitialized(true);
+    }
     
   }
 
@@ -127,7 +131,7 @@ const Home = () => {
         
           Show NFTs</button>
       </div>
-
+      {isInitialized && (
       <div className="flex flex-wrap gap-y-10 mt-4 w-5/6 gap-x-6 justify-center bg-white rounded-md">
         {
           NFTs.map((nft, index) => {
@@ -145,6 +149,7 @@ const Home = () => {
           </button>
           : <></> } 
       </div>
+      )}
       </div>
 
       {showButton && (
