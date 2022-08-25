@@ -13,7 +13,7 @@ export const NFTCard = ({nft}) => {
     };
 
     return (
-        <div className="w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 2xl:w-1/6 mt-5">
+        <div className="w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 2xl:w-1/6 mt-10">
             <div className="block transition overflow-hidden rounded-md bg-white">
                 <img className="w-full hover:scale-110 transition duration-400" src={nft.media[0].gateway}></img>
             </div>
